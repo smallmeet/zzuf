@@ -101,10 +101,12 @@ class ZHTMLParser(ZBaseCoreObject):
             self._flg_is_parsing = True
         if self._flg_parse_finished == True:
             self._flg_parse_finished = False
-        
-        """INPUT YOUR CODES"""
-        
-        
+        self.html_tag_tree=[]
+        if self.html_raw_data!="":
+            soup = BeautifulSoup(self.html_raw_data, "lxml") 
+            self.soup=soup.prettify()
+            for tag in soup.find_all(True):
+                self.html_tag_tree.append(tag)
         
         if self._flg_is_parsing == True:
             self._flg_is_parsing = False
@@ -147,6 +149,28 @@ class ZHTMLParser(ZBaseCoreObject):
             self._flg_is_requesting = False
         if self._flg_request_finished == False:
             self._flg_request_finished = True
+
+    def data_handler(self):
+        urldb=bsddb.btopen('url.db','c')
+        htmldb=bsddb.btopen('html.db','c')
+        
+        urldb['url']=self.url
+        urldb['protocol']=self.url_protocol
+        urldb['domain']=self.url_domain
+        urldb['path']=self.url_path
+        urldb['param']=self.url_param
+        urldb['fragment']=self.url_fragment
+        urldb.sync()
+        urldb.close()
+        
+        htmldb['raw_data']=self.html_raw_data
+        htmldb['soup']=self.soup
+        htmldb['tag_tree']=self.html_tag_tree
+        htmldb.sync()
+        htmldb.close()
+
+
+
             
         
 
