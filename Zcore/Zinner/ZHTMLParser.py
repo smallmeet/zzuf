@@ -101,9 +101,9 @@ class ZHTMLParser(ZBaseCoreObject):
             self._flg_is_parsing = True
         if self._flg_parse_finished == True:
             self._flg_parse_finished = False
-        html_tag_tree=[]
+        self.html_tag_tree=[]
         if self.html_raw_data!="":
-            soup = BeautifulSoup(self.html_raw_data, "lxml")
+            soup = BeautifulSoup(self.html_raw_data, "lxml") 
             self.soup=soup.prettify()
             for tag in soup.find_all(True):
                 self.html_tag_tree.append(tag)
