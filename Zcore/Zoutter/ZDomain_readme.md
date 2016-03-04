@@ -1,6 +1,6 @@
 # ZDomainScanner Basic Useage
 ##Function
-  * ##getid
+  * getid
     ###You can get the ip of the domain you would like to scan.
     ###It may return 350 if error.
   * ##getpz
