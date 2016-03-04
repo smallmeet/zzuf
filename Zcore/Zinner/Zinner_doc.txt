@@ -1,0 +1,31 @@
+How to use Zinner ZHTMLParser
+
+"""Create the obj & init"""
+    test_obj = ZHTMLParser(request_url='http://freebuf.com/')
+"""execute the process""""
+    test_obj.execute()
+
+"""
+After your executing the method
+you can use these fields
+"""
+    test_obj.soup
+    test_obj.db_name
+    test_obj.html_raw_data
+    test_obj.html_tag_tree
+    
+    for i in test_obj.html_tag_tree:
+        print i.encode('gbk')
+
+"""These flags is for watch how the Parser executing"""
+_flg_is_dynamic		
+_flg_is_initing
+_flg_is_parsing
+_flg_is_requesting
+_flg_is_executing
+
+_flg_parse_finished
+_flg_request_finished
+_flg_store_finished
+_flg_execute_finished
+_flg_init_finished    

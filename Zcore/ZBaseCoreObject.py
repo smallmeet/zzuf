@@ -1,4 +1,5 @@
 #encoding:utf-8
 
 class ZBaseCoreObject:
-    pass
+    def __init__(self):
+        pass
