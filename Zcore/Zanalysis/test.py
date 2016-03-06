@@ -37,7 +37,7 @@ for tag_a in tag_as:
 
 
 script_tags = soup.find_all('script')
-"""
+
 for script_tag in script_tags :
     try:
         if script_tag['src'] != "":
@@ -45,7 +45,7 @@ for script_tag in script_tags :
     except:
         if script_tag.text != "":
             print script_tag.text
-"""            
+          
 style_tags = soup.find_all("style")
 for style_tag in style_tags:
     print style_tag
