@@ -16,10 +16,14 @@ def singleton(cls, *args, **kw):
     return _singleton
 
 class ZDb:
-    def __init__(self, db_name):
+    def __init__(self, group = "", db_name=""):
         self.db_name = db_name
         
+        self.conn = None
+        self.cursor = None
         
+        self.__create_db()
+
 @singleton
 class ZDbManager:
     def __init__(self):
@@ -61,4 +65,13 @@ class ZDbManager:
             
         
     
-        
+if __name__ == '__main__':
+    
+    """proof singleton"""
+    a = ZDbManager()
+    b = ZDbManager()
+    
+    a.all_dbs['s'] = 1
+    b.all_dbs['b'] = 3
+    
+    print a.all_dbs
