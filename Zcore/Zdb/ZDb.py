@@ -2,6 +2,7 @@
 import sys
 sys.path.append('../')
 import sqlite3
+import errno
 
 """
 This class is to handle the data storing more easily
@@ -41,28 +42,43 @@ class ZDbManager:
         
         """curser_tables : get_every db' s conn or curser"""
         self.conn_tables = dict()
+        
+        self.conn = sqlite3.connect('Zzuf.db')
+        self.__init_tables()
+        self.cursor = conn.cursor()
     
-    def get_dbs(self, group = "", db_names = []):
-        """
-        Input db_names in a list
-            if you put a other(except a list) as db_names in this
-            method , it will return 0 as a error
-        """
-        if not isinstance(db_names, list):
-            raise TypeError("Excepted Object of type list, get {}".
-                            format(type(db_names).__name__))
-        
-        if not isinstance(group, str):
-            raise TypeError("Excepted Object of type str , get {}".
-                            format(type(group).__name__))
-        
-        """Store database info"""
-        if self.all_dbs.has_key(group) == True:
-            """There some problems here! Attention!"""
-            self.all_dbs[group] = self.all_dbs[group] + db_names
-        else:
-            self.all_dbs[group] = db_names
+    def __init_tables():
+        try:
+            """TBD"""
+            pass
+        except sqlite3.Error e:
+            print errno(e)
+    
+    def has_table(self, table_name = ""):
+        self.cursor.execute('select name form sqlite_master ')
+        for table in self.cursor.fetchall():
+            if table_name in table:
+                return True
+        return False
+    
+    def execute(self, query):
+        try:
+            self.cursor.execute(query)
+        except sqlite3.Error e:
+            print "[!]DB ERROR!"
             
+    def commit(self):
+        try:
+            self.conn.commit()
+        except sqlite3.Error e:
+            print "[!]DB ERROR!"
+    def close(self):
+        """Close DB"""
+        self.cursor.close()
+        self.conn.close()
+            
+    
+    
         
     
 if __name__ == '__main__':
